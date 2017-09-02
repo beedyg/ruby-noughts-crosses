@@ -31,6 +31,17 @@ describe Board do
   end
 
   it "Test if No more moves left" do
-    @board.grid = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    @board.grid.each_with_index do |row, row_i|
+      row.each { |col| @board.place_x_at(row_i,col) }
+    end
     expect(@board.moves_left?).to eq(false)
+  end
+
+  # it "All row winning condition recognised" do
+  #   @board.grid.each_with_index do |row, row_i|
+  #     row.each { |col| @board.place_x_at(row_i,col) }
+  #   end
+  #   expect(@board.moves_left?).to eq(false)
+  # end
+
 end

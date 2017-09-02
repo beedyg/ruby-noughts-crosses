@@ -17,6 +17,14 @@ class Board
     answer = @grid[row][col] == 0
   end
 
+  def moves_left?
+    sum = 0
+    grid.each do |row|
+      row.each { |v| sum += v.abs}
+    end
+    sum == 9
+  end
+
   private
     def place(position, marker)
     end
