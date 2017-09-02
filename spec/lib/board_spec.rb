@@ -29,4 +29,8 @@ describe Board do
     expect(@board.can_place?(1,1)).to eq(false)
     expect(@board.can_place?(0,1)).to eq(true)
   end
+
+  it "Test if No more moves left" do
+    @board.grid = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    expect(@board.moves_left?).to eq(false)
 end
