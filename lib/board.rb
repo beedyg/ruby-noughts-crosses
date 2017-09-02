@@ -19,13 +19,44 @@ class Board
 
   def moves_left?
     sum = 0
-    grid.each do |row|
+    @grid.each do |row|
       row.each { |v| sum += v.abs}
     end
     sum == 9
   end
 
-  private
-    def place(position, marker)
+  def win_by_row?
+    answer = false
+    @grid.each do |row|
+      sum = 0
+      row.each {|v| sum += v}
+      answer = true if sum.abs == 3
     end
+    answer
+  end
+
+  def win_by_col?
+    answer = false
+    sum_col = [0,0,0]
+    @grid.each do |row|
+      row.each_with_index {|v, col_i| sum_col[col_i] += v}
+    end
+    answer = true if sum_col.include?(-3) || sum_col.include?(3)
+  end
+
+  def win_by_norm_diag?
+    answer = false
+    sum = 0
+    (0..2).each { |i| sum += @grid[i][i] }
+    answer = true if sum.abs == 3
+  end
+
+  def win_by_opp_diag?
+    answer = false
+    sum = 0
+    (0..2).each { |i| sum += @grid[i][(i-2).abs] }
+    answer = true if sum.abs == 3
+  end
+
+
 end
