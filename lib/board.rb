@@ -5,12 +5,16 @@ class Board
     @grid = Array.new(3){Array.new(3){0}}
   end
 
-  def place_x(row, col)
-    @grid[row][col] = 'X'
+  def place_x_at(row, col)
+    @grid[row][col] = -1 if can_place?(row, col)
+  end
+
+  def place_0_at(row, col)
+    @grid[row][col] = 1 if can_place?(row, col)
   end
 
   def can_place?(row, col)
-    answer = @grid[row][col] == nil
+    answer = @grid[row][col] == 0
   end
 
   private
