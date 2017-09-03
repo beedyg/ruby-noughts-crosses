@@ -47,4 +47,20 @@ describe Board do
     expect(@board.win_by_opp_diag?).to eq(true)
   end
 
+  it "Can tell who won Xs" do
+    [[1,1,1],[1,1,0],[1,0,1]].each_with_index do |row, row_i|
+      row.each_with_index  { |col, col_i| @board.place_x_at(row_i,col_i) if col == 1 }
+    end
+
+    expect(@board.get_winner).to eq(1)
+  end
+
+  it "Can tell who won 0s" do
+    [[-1,-1,-1],[-1,-1,0],[-1,0,-1]].each_with_index do |row, row_i|
+      row.each_with_index  { |col, col_i| @board.place_0_at(row_i,col_i) if col == -1 }
+    end
+
+    expect(@board.get_winner).to eq(-1)
+  end
+
 end
