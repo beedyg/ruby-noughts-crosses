@@ -4,7 +4,7 @@ class Player
     @dimension = dimension
   end
 
-  def get_next_move
+  def get_move
     move = [rand(@dimension), rand(@dimension)]
   end
     

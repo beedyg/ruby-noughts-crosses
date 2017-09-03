@@ -2,7 +2,10 @@ class Game
   attr_accessor :board
 
   def initialize(dimension = 3)
+    @dimension = dimension
     @board = Board.new(dimension)
+    @players = []
+    @markers = @board.markers.keys
   end
 
   def start
@@ -15,6 +18,32 @@ class Game
     puts "You chose #{num_human_players} human player#{'s' if num_human_players != 1}"
 
     ## next steps
+    if num_human_players == 0
+      @players[0] = Player.new(@dimension)
+      @players[1] = Player.new(@dimension)
+      turn = 0
+      while @board.status == :play
+        print_board
+        puts "It is #{turn == 0 ? 'Cross\'' : 'Nought\'s'} turn"
+        move = @players[turn].get_move
+        while !@board.can_place?(*move)
+          move = @players[turn].get_move
+        end
+        @board.place_at(*move, @markers[turn])
+        turn = (turn - 1).abs
+      end
+      puts "And the result is #{@board.status}"
+      print_board
+    end
 
+  end
+
+  def print_board
+    puts "\nCurrent board"
+    @board.grid.each_with_index do |row, index|
+      puts row.join(' | ')
+      ((row.size * 3) + 1).times { print '-' } if index + 1 < @board.grid.size
+      print "\n"
+    end
   end
 end
