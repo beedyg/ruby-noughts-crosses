@@ -38,6 +38,14 @@ describe Board do
     expect(@board.won_by_row).to eq(1)
   end
 
+  it "Test if recognises column win" do
+    expect(@board.won_by_col).to eq(0)
+    @board.place_at(0, 0, :cross)
+    @board.place_at(1, 0, :cross)
+    @board.place_at(2, 0, :cross)
+    expect(@board.won_by_col).to eq(1)
+  end
+
   # it "Test if No more moves left" do
   #   @board.grid.each_with_index do |row, row_i|
   #     row.each { |col| @board.place_x_at(row_i,col) }

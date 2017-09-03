@@ -28,10 +28,22 @@ class Board
   def won_by_row
     @grid.each do |row|
       sum = row.inject(:+)
-      return sum <=> 0 if sum.abs == grid.size
+      return sum <=> 0 if sum.abs == @grid.size
     end
     0
-  end 
+  end
+  
+  def won_by_col
+    column_sums = Array.new(@grid.size){0}
+    @grid.each do |row|
+      row.each_with_index {|v, col_i| column_sums[col_i] += v}
+    end
+    column_sums.each do |total|
+      puts total
+      return total <=> 0 if total.abs == @grid.size
+    end
+    0
+  end
 
   
 
