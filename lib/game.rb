@@ -21,20 +21,25 @@ class Game
     if num_human_players == 0
       @players[0] = Player.new(@dimension)
       @players[1] = Player.new(@dimension)
-      turn = 0
-      while @board.status == :play
-        print_board
-        puts "It is #{turn == 0 ? 'Cross\'' : 'Nought\'s'} turn"
-        move = @players[turn].get_move
-        while !@board.can_place?(*move)
-          move = @players[turn].get_move
-        end
-        @board.place_at(*move, @markers[turn])
-        turn = (turn - 1).abs
-      end
-      puts "And the result is #{@board.status}"
-      print_board
+    elsif num_human_players == 1
+      @players[0] = HumanPlayer.new(@dimension)
+      @players[1] = Player.new(@dimension)
     end
+    
+    turn = 0
+    while @board.status == :play
+      print_board
+      puts "It is #{turn == 0 ? 'Cross\'' : 'Nought\'s'} turn"
+      move = @players[turn].get_move
+      while !@board.can_place?(*move)
+        move = @players[turn].get_move
+      end
+      @board.place_at(*move, @markers[turn])
+      turn = (turn - 1).abs
+    end
+    puts "And the result is #{@board.status}"
+    print_board
+    
 
   end
 
