@@ -46,6 +46,40 @@ describe Board do
     expect(@board.won_by_col).to eq(1)
   end
 
+  it "Test if recognises diag win" do
+    expect(@board.won_by_diagonal).to eq(0)
+    @board.place_at(0, 0, :cross)
+    @board.place_at(1, 1, :cross)
+    @board.place_at(2, 2, :cross)
+    expect(@board.won_by_diagonal).to eq(1)
+
+    @board = Board.new
+
+    expect(@board.won_by_diagonal).to eq(0)
+    @board.place_at(0, 2, :nought)
+    @board.place_at(1, 1, :nought)
+    @board.place_at(2, 0, :nought)
+    expect(@board.won_by_diagonal).to eq(-1)
+  end
+
+  it "Satus updated by win" do
+    expect(@board.won_by_diagonal).to eq(0)
+    @board.place_at(0, 0, :cross)
+    @board.place_at(1, 1, :cross)
+    @board.place_at(2, 2, :cross)
+    expect(@board.won_by_diagonal).to eq(1)
+    expect(@board.status).to eq(:won_by_cross)
+
+    @board = Board.new
+
+    expect(@board.won_by_diagonal).to eq(0)
+    @board.place_at(0, 2, :nought)
+    @board.place_at(1, 1, :nought)
+    @board.place_at(2, 0, :nought)
+    expect(@board.won_by_diagonal).to eq(-1)
+    expect(@board.status).to eq(:won_by_nought)
+  end
+
   # it "Test if No more moves left" do
   #   @board.grid.each_with_index do |row, row_i|
   #     row.each { |col| @board.place_x_at(row_i,col) }
